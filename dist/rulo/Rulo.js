@@ -39,12 +39,284 @@ var async_process_1 = require("../ext/async_process");
 var Rulo = /** @class */ (function () {
     function Rulo() {
     }
-    Rulo.checkRunMode = function () {
+    // subscribe topic
+    Rulo.changeRunMode = function (mode) {
         return __awaiter(this, void 0, void 0, function () {
             var out;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, async_process_1.exec('rostopic pub -1 /mobile_base/command/brushesPWM_cmd rulo_msgs/BrushesPWM_cmd -- 20 20 20')];
+                    case 0:
+                        if (!mode.match(/^(manual|normal)$/)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/command/mode std_msgs/String -- " + mode)];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        console.log('invalid argument value. give "normal" or "manual".');
+                        return [2 /*return*/];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    // TODO: haven't tested
+    Rulo.setVelocity = function (velocity) {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 Rulo/cmd_vel geometry_msgs/Twist -- '[" + velocity + ", 0.0, 0.0]' '[0.0, 0.0, 0.0]'")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    // TODO: has to be checked
+    Rulo.drivePwm = function (percentage) {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 drivePwm rulo_msgs/DrivePwm --")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    // TODO: has to be checked
+    Rulo.setupBrushes = function (side_brush, vacuum, main_brush, side_brush_clockwise, main_sbrush_dir) {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/command/brushes_cmd rulo_msgs/Brushes_cmd -- " + side_brush + " " + vacuum + " " + main_brush + " " + side_brush_clockwise + " " + main_sbrush_dir)];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.spinBrushMotor = function (side_brush, vacuum, main_brush) {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (side_brush || vacuum || main_brush < 0 || 100 < side_brush || vacuum || main_brush) {
+                            console.log('invalid argument value. set the value between 0 ~ 100');
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, async_process_1.exec("rostopic pub -1 /mobile_base/command/brushesPWM_cmd rulo_msgs/BrushesPWM_cmd -- " + side_brush + " " + vacuum + " " + main_brush)];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    // publish topic
+    // TODO: below has to be all checked
+    Rulo.bumperStatus = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/bumper rulo_msgs/Bumper")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.dropWheel = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/wheelDrop rulo_msgs/BooleanSensor")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.currentMode = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/mode std_msgs/Int8")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.dropSensor = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/cliff rulo_msgs/IRBumper")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.batteryStatus = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/battery rulo_msgs/Battery")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.motorStatus = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/drive rulo_msgs/Drive")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.checkSlip = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/slip rulo_msgs/Slip")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.leftIR = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/opt_left rulo_msgs/Range")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.rightIR = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/opt_right rulo_msgs/Range")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.brushStatus = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/braches rulo_msgs/Brushes")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.detectGarbage = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/dirt_detect rulo_msgs/DirtDetect")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.dustboxStatus = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/dustbox rulo_msgs/BooleanSensor")];
+                    case 1:
+                        out = _a.sent();
+                        console.log("stdout: " + out.out);
+                        console.log("sterr: " + out.error);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Rulo.dustLevel = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var out;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, async_process_1.exec("rostopic pub -1 mobile_base/event/dust std_msgs/Byte")];
                     case 1:
                         out = _a.sent();
                         console.log("stdout: " + out.out);

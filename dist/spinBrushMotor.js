@@ -35,28 +35,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var async_process_1 = require("../ext/async_process");
-var Rulo = /** @class */ (function () {
-    function Rulo() {
-    }
-    Rulo.prototype.checkRunMode = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var out;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, async_process_1.exec('rostopic pub -1 mobile_base/event/mode')];
-                    case 1:
-                        out = _a.sent();
-                        console.log("stdout: " + out.out);
-                        console.log("sterr: " + out.error);
-                        return [2 /*return*/];
-                }
-            });
+var Rulo_1 = require("./rulo/Rulo");
+function start() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, Rulo_1.default.spinBrushMotor(30, 20, 30)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
-    };
-    return Rulo;
-}());
-exports.default = Rulo;
-var rulo = new Rulo();
-var result = rulo.checkRunMode();
-//# sourceMappingURL=run_rulo.js.map
+    });
+}
+start();
+//# sourceMappingURL=spinBrushMotor.js.map

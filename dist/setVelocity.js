@@ -38,13 +38,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Rulo_1 = require("./rulo/Rulo");
 function start() {
     return __awaiter(this, void 0, void 0, function () {
+        var velocity;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: 
-                // await Rulo.spinBrushMotor(30, 20, 300);
-                return [4 /*yield*/, Rulo_1.default.changeRunMode('manual')];
+                case 0:
+                    velocity = parseFloat(process.argv[2]);
+                    return [4 /*yield*/, Rulo_1.default.setVelocity(velocity)];
                 case 1:
-                    // await Rulo.spinBrushMotor(30, 20, 300);
                     _a.sent();
                     return [2 /*return*/];
             }
@@ -52,4 +52,4 @@ function start() {
     });
 }
 start();
-//# sourceMappingURL=server.js.map
+//# sourceMappingURL=setVelocity.js.map

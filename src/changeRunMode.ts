@@ -1,7 +1,7 @@
 import Rulo from './rulo/Rulo';
 
 async function start(): Promise<void> {
-    await Rulo.checkRunMode();
+    await Rulo.changeRunMode('manual');
 }
 
 start();
