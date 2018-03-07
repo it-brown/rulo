@@ -14,7 +14,6 @@ export default class Rulo {
         }
     }
 
-    // TODO: haven't tested
     public static async setVelocity(velocity: number): Promise<void> {
         const out: StdOut = await exec(`rostopic pub -1 Rulo/cmd_vel geometry_msgs/Twist -- '[${velocity}, 0.0, 0.0]' '[0.0, 0.0, 0.0]'`);
         console.log(`stdout: ${out.out}`);
@@ -29,7 +28,7 @@ export default class Rulo {
     }
 
     // TODO: has to be checked
-    public static async setupBrushes(side_brush: number, vacuum: number, main_brush: number, side_brush_clockwise: number, main_sbrush_dir: number): Promise<void> {
+    public static async setupBrush(side_brush: number, vacuum: number, main_brush: number, side_brush_clockwise: number, main_sbrush_dir: number): Promise<void> {
         const out: StdOut = await exec(`rostopic pub -1 mobile_base/command/brushes_cmd rulo_msgs/Brushes_cmd -- ${side_brush} ${vacuum} ${main_brush} ${side_brush_clockwise} ${main_sbrush_dir}`);
         console.log(`stdout: ${out.out}`);
         console.log(`sterr: ${out.error}`);
