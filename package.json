@@ -1,0 +1,30 @@
+{
+    "name": "rulo",
+    "version": "1.0.0",
+    "description": "## インストール方法 `$ ./install.sh` を実行",
+    "main": "install-npm-script.js",
+    "scripts": {
+        "build": "./scripts.sh build_sync_node_modules",
+        "clean": "./scripts.sh clean",
+        "build_typedoc": "./scripts.sh build_typedoc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/narumi18wa/node-ts-proj.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/narumi18wa/node-ts-proj/issues"
+    },
+    "homepage": "https://github.com/narumi18wa/node-ts-proj#readme",
+    "dependencies": {
+        "child_process": "^1.0.2",
+        "express": "^4.16.2",
+        "source-map-support": "^0.5.3",
+        "typescript": "^2.7.2"
+    },
+    "devDependencies": {
+        "typedoc": "^0.11.0"
+    }
+}
