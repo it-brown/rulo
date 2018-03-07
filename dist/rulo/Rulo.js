@@ -44,7 +44,7 @@ var Rulo = /** @class */ (function () {
             var out;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, async_process_1.exec('rostopic pub -1 mobile_base/event/mode')];
+                    case 0: return [4 /*yield*/, async_process_1.exec('rostopic pub -1 /mobile_base/command/brushesPWM_cmd rulo_msgs/BrushesPWM_cmd -- 20 20 20')];
                     case 1:
                         out = _a.sent();
                         console.log("stdout: " + out.out);
