@@ -16,20 +16,18 @@ var Sample;
                 console.log("sterr: " + stderr);
             });
         };
-        rulo.prototype.showAuth = function () {
-            child_process.exec('ls -l', function (error, stdout, stderr) {
-                if (error instanceof Error) {
-                    console.error("error: " + error);
-                    console.log('exec Error *******');
-                }
-                else {
-                    console.log("stdout: " + stdout);
-                    console.log('exec Success!');
-                }
-            });
-        };
         return rulo;
     }());
     Sample.rulo = rulo;
+    child_process.exec('ls -l', function (error, stdout, stderr) {
+        if (error instanceof Error) {
+            console.error("error: " + error);
+            console.log('exec Error *******');
+        }
+        else {
+            console.log("stdout: " + stdout);
+            console.log('exec Success!');
+        }
+    });
 })(Sample || (Sample = {}));
 //# sourceMappingURL=run_rulo.js.map
