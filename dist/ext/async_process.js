@@ -35,29 +35,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var async_process_1 = require("../ext/async_process");
-var Sample;
-(function (Sample) {
-    var rulo = /** @class */ (function () {
-        function rulo() {
-        }
-        rulo.prototype.checkRunMode = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var out;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, async_process_1.exec('rostopic pub -1 mobile_base/event/mode')];
-                        case 1:
-                            out = _a.sent();
-                            console.log("stdout: " + out.out);
-                            console.log("sterr: " + out.error);
-                            return [2 /*return*/];
-                    }
-                });
-            });
-        };
-        return rulo;
-    }());
-    Sample.rulo = rulo;
-})(Sample || (Sample = {}));
-//# sourceMappingURL=run_rulo.js.map
+var child_process = require("child_process");
+function exec(cmd) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, new Promise(function (resolve, reject) {
+                        child_process.exec(cmd, function (e, out, error) {
+                            if (e) {
+                                reject(e);
+                                return;
+                            }
+                            resolve({ out: out, error: error });
+                        });
+                    })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.exec = exec;
+//# sourceMappingURL=async_process.js.map
