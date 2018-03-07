@@ -1,5 +1,6 @@
 node_modules
-dist
+##仕様先でコンパイルできないので,distをignoreしない
+##dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
