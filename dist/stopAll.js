@@ -36,15 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Rulo_1 = require("./rulo/Rulo");
-function I(arg) {
-    return parseInt(arg);
-}
-exports.I = I;
 function start() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, Rulo_1.default.setupBrush(I(process.argv[2]), I(process.argv[3]), I(process.argv[4]), I(process.argv[5]), I(process.argv[6]))];
+                case 0: return [4 /*yield*/, Rulo_1.default.stopAll()];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
@@ -53,4 +49,4 @@ function start() {
     });
 }
 start();
-//# sourceMappingURL=setupBrush.js.map
+//# sourceMappingURL=stopAll.js.map

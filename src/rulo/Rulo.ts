@@ -1,6 +1,13 @@
 import { exec, StdOut } from '../ext/async_process';
 
 export default class Rulo {
+    // 動作機能停止
+
+    public static async stopAll(): Promise<void> {
+        await this.setVelocity(0.0);
+        await this.setupBrush(0, 0, 0, 0, 0);
+        await this.spinBrushMotor(0, 0, 0);
+    }
     // subscribe topic
 
     public static async changeRunMode(mode: string): Promise<void> {
@@ -27,7 +34,6 @@ export default class Rulo {
         console.log(`sterr: ${out.error}`);
     }
 
-    // TODO: has to be checked
     public static async setupBrush(side_brush: number, vacuum: number, main_brush: number, side_brush_clockwise: number, main_sbrush_dir: number): Promise<void> {
         const out: StdOut = await exec(`rostopic pub -1 mobile_base/command/brushes_cmd rulo_msgs/Brushes_cmd -- ${side_brush} ${vacuum} ${main_brush} ${side_brush_clockwise} ${main_sbrush_dir}`);
         console.log(`stdout: ${out.out}`);

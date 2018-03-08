@@ -39,6 +39,25 @@ var async_process_1 = require("../ext/async_process");
 var Rulo = /** @class */ (function () {
     function Rulo() {
     }
+    // 全機能停止
+    Rulo.stopAll = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.setVelocity(0.0)];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.setupBrush(0, 0, 0, 0, 0)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.spinBrushMotor(0, 0, 0)];
+                    case 3:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     // subscribe topic
     Rulo.changeRunMode = function (mode) {
         return __awaiter(this, void 0, void 0, function () {
@@ -92,7 +111,6 @@ var Rulo = /** @class */ (function () {
             });
         });
     };
-    // TODO: has to be checked
     Rulo.setupBrush = function (side_brush, vacuum, main_brush, side_brush_clockwise, main_sbrush_dir) {
         return __awaiter(this, void 0, void 0, function () {
             var out;
