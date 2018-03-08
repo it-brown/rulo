@@ -39,7 +39,7 @@ var async_process_1 = require("../ext/async_process");
 var Rulo = /** @class */ (function () {
     function Rulo() {
     }
-    // 全機能停止
+    // 動作機能停止
     Rulo.stopAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
